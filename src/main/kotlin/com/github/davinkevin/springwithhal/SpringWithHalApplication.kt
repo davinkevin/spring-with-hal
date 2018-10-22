@@ -38,11 +38,11 @@ data class Podcast(val id: UUID, val title: String)
 
 class PodcastHAL(p: Podcast, host: String) {
 
-    @JsonProperty("_links") val links = hashMapOf<String, URL>()
     val id = p.id
     val title = p.title
 
-    init {
-        links["self"] = URL("https://$host/api/v1/podcasts/${p.id}")
+    @JsonProperty("_links")
+    val links = mutableMapOf<String, URL>().apply {
+        this["self"] = URL("https://$host/api/v1/podcasts/${p.id}")
     }
 }
